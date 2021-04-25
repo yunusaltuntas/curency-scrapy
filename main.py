@@ -1,38 +1,58 @@
-from bs4 import BeautifulSoup as bs
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.chrome.options import Options
+import requests
+import json
+#from fake_useragent import UserAgent
+
 class currencyconverter:
 	def __init__(self):
-		chrome_options = Options()
-		chrome_options.add_argument('--headless')
-		chrome_options.add_argument("start-maximized")
-		chrome_options.add_argument("disable-infobars")
-		chrome_options.add_argument("--disable-extensions")
-		chrome_options.add_argument("--disable-gpu")
-		chrome_options.add_argument("--disable-dev-shm-usage")
-		chrome_options.add_argument("--no-sandbox")
-		self.driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver',options=chrome_options)
-	def convert(self,From,To,Amount="1"):
-		self.driver.get("https://www.xe.com/currencyconverter/convert/?Amount="+Amount+"&From="+From+"&To="+To)
-		r=self.driver.page_source
-		elms=bs(r,'lxml')
-		text=str(elms.findAll('p',attrs={'class':'sc-AxjAm ConvertedSubText-fcQdYJ efOulh'}))
-		starting=0
-		for i in range(0,len(text)):
-			if text[i]==">":
-				starting=i
-			elif text[i]=="<" and starting!=0:
-				b=text[starting+1:i]
-				break
-		return b
-if __name__=="__main__":
-	converter=currencyconverter()
-	Amount="1"
-	From="USD"
-	To="GBP"
-	print(converter.convert(From,To,Amount))
+		#self.ua = UserAgent()
+		pass
+	def rates(self):
+		headers = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0',
+		'Accept': '*/*',
+		'Accept-Language': 'tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3',
+		'Referer': 'https://www.xe.com/',
+		'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
+		'Connection': 'keep-alive',
+		}
+
+		response = requests.get('https://www.xe.com/api/protected/midmarket-converter/', headers=headers).text
+		print(response,flush=True)
+		jsonData=json.loads(response)
+		print(jsonData,flush=True)
+		return jsonData
+	def chart(self,From,To):
+		#agent=ua.random
+		headers = {
+			'sec-ch-ua': '^\\^',
+			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
+			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
+			'sec-ch-ua-mobile': '?0',
+			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
+		}
+		
+		params = (
+			('fromCurrency', From),
+			('toCurrency', To),
+		)
+		
+		response = requests.get('https://www.xe.com/api/protected/charting-rates/', headers=headers, params=params).text
+		jsonData=json.loads(response)
+		print(jsonData,flush=True)
+		return jsonData
+	def statistics(self,From,To):
+		headers = {
+			'sec-ch-ua': '^\\^',
+			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
+			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
+			'sec-ch-ua-mobile': '?0',
+			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
+		}
+		params = (
+			('from', From),
+			('to', To),
+		)
+		response = requests.get('https://www.xe.com/api/protected/statistics/', headers=headers, params=params).text
+		jsonData=json.loads(response)
+		print(jsonData,flush=True)
+		return jsonData

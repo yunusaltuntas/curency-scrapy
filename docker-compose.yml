@@ -2,6 +2,8 @@ version: "3"
 services: 
   app:
     build: .
-    command: bash -c "cd /app && python main.py"
+    command: bash -c "cd /app && python api.py"
+    ports:
+      - 3003:3003
     volumes:
       - ./:/app
