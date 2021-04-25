@@ -9,7 +9,6 @@ class currencyconverter:
 		'User-Agent': str(generate_user_agent()),
 		'Accept': '*/*',
 		'Accept-Language': 'tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3',
-		'Referer': 'https://www.xe.com/',
 		'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
 		'Connection': 'keep-alive',
 		}
@@ -24,7 +23,6 @@ class currencyconverter:
 		headers = {
 			'sec-ch-ua': '^\\^',
 			'User-Agent': str(generate_user_agent()),
-			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
 			'sec-ch-ua-mobile': '?0',
 			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
 		}
@@ -42,7 +40,6 @@ class currencyconverter:
 		headers = {
 			'sec-ch-ua': '^\\^',
 			'User-Agent': str(generate_user_agent()),
-			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
 			'sec-ch-ua-mobile': '?0',
 			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
 		}
