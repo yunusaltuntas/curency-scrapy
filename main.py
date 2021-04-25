@@ -1,14 +1,12 @@
 import requests
 import json
-#from fake_useragent import UserAgent
-
+from user_agent import generate_user_agent, generate_navigator
 class currencyconverter:
 	def __init__(self):
-		#self.ua = UserAgent()
 		pass
 	def rates(self):
 		headers = {
-		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0',
+		'User-Agent': str(generate_user_agent()),
 		'Accept': '*/*',
 		'Accept-Language': 'tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3',
 		'Referer': 'https://www.xe.com/',
@@ -25,7 +23,7 @@ class currencyconverter:
 		#agent=ua.random
 		headers = {
 			'sec-ch-ua': '^\\^',
-			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
+			'User-Agent': str(generate_user_agent()),
 			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
 			'sec-ch-ua-mobile': '?0',
 			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
@@ -43,7 +41,7 @@ class currencyconverter:
 	def statistics(self,From,To):
 		headers = {
 			'sec-ch-ua': '^\\^',
-			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36',
+			'User-Agent': str(generate_user_agent()),
 			'Referer': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR',
 			'sec-ch-ua-mobile': '?0',
 			'authorization': 'Basic bG9kZXN0YXI6QlQ4bUdGYmtPSjJnQ0p5TmlFeVd4Z2NEZlBTVHYyTEc=',
